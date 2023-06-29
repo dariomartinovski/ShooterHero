@@ -8,9 +8,9 @@ public class EnemyController : MonoBehaviour
     public GameObject Player;
     
     // Enemy attributes
-    private float MoveSpeed = 3f;
-  //  private bool IsHit = false;
     private Rigidbody2D rb;
+    private float MoveSpeed = 3f;
+    private bool GameActive = true;
 
     void Start()
     {
@@ -21,29 +21,20 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // if (!IsHit)
-       // {
-        rb.velocity = (Player.transform.position - transform.position).normalized * MoveSpeed;
-      //  }
-     //   else
-     //   {
-     //       rb.velocity = new Vector2(0, 0);
-    //    }
-        // Calculate the direction from the enemy to the hero
-       /* Vector2 direction = Player.transform.position - transform.position;
-
-        // Normalize the direction vector to get a unit vector
-        direction = direction.normalized;
-
-        // Set the velocity based on the direction and move speed
-        rb.velocity = direction * MoveSpeed;*/
+        if (GameActive)
+        {
+            rb.velocity = (Player.transform.position - transform.position).normalized * MoveSpeed;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //IsHit = true;
             // Handle collision with the player
             // Reduce hero's health or trigger an attack
             // You can access the hero's script or health component and call appropriate functions
@@ -54,5 +45,10 @@ public class EnemyController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+
+    public void StopMovement() {
+        GameActive = false;
     }
 }

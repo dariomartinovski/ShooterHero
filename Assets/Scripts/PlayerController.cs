@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     public HealthBarController HealthBar;
 
     //Player
-    float MoveSpeed = 4;
-    float HorizontalInput;
-    float VerticalInput;
-    int CurrentLives = 5;
-   // int MaxLives = 5;
+    private float MoveSpeed = 4;
+    private float HorizontalInput;
+    private float VerticalInput;
+    private int CurrentLives = 5;
+    private bool GameActive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -32,24 +32,24 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
-        rb.velocity = new Vector2(HorizontalInput, VerticalInput).normalized * MoveSpeed ;
-      /*  if(HorizontalInput != 0 || VerticalInput != 0){
-            rb.Velocity = new Vector2(HorizontalInput * MoveSpeed, VerticalInput * MoveSpeed);
+        if (GameActive)
+        {
+            rb.velocity = new Vector2(HorizontalInput, VerticalInput).normalized * MoveSpeed ;
         }
-        else{
-            rb.Velocity = new Vector2(0, 0);
-        }*/
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     public void TakeDamage(int num = 1)
     {
         CurrentLives -= num;
-        if (CurrentLives >= 0)
-        {
-            Logic.TakeDamage();
-            HealthBar.RemoveHeart();
-            //TODO
-            //GameOver();
-        }
+        Logic.TakeDamage();
+        HealthBar.RemoveHeart();
+    }
+
+    public void StopMovement() {
+        GameActive = false;
     }
 }

@@ -7,10 +7,12 @@ public class HealthBarController : MonoBehaviour
     public GameObject Heart;
     private int CurrentLives;
     private int MaxLives = 5;
-    List<GameObject> Hearts = new List<GameObject>();
+    private List<GameObject> Hearts = new List<GameObject>();
+    public LogicScript Logic;
 
     void Start() {
         MaxHealth();
+        Logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicScript>();
     }
 
     public void MaxHealth() {
@@ -39,6 +41,10 @@ public class HealthBarController : MonoBehaviour
             GameObject lastHeart = Hearts[Hearts.Count - 1];
             Hearts.RemoveAt(Hearts.Count - 1);
             Destroy(lastHeart);
+        }
+        if (Hearts.Count == 0)
+        {
+            Logic.GameOver();
         }
     }
 }
