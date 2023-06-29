@@ -35,6 +35,12 @@ git commit -m "Commit message"
 
 Replace `"Commit message"` with a meaningful description of the changes you're committing.
 
+```bash
+git commit -m "Initial commit" -m "This is the initial commit for the project. It includes the basic folder structure, assets, and initial configuration files. More details about the project setup can be found in the README.md file."
+```
+
+In this example, the first -m flag and message "Initial commit" represents the first line of the commit message (limited to 50 characters). The second -m flag and message provide the longer commit description.
+
 6. Push the changes to the remote repository:
 
 ```bash
