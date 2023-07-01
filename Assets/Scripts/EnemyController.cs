@@ -12,10 +12,17 @@ public class EnemyController : MonoBehaviour
     private float MoveSpeed = 3f;
     private bool GameActive = true;
 
+    // Animations
+    private Animator animator;
+    private string CurrentAnimState;
+    private const string ENEMY_MOVE_LEFT = "Enemy_Move_Left";
+    private const string ENEMY_MOVE_RIGHT = "Enemy_Move_Right";
+
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -24,6 +31,21 @@ public class EnemyController : MonoBehaviour
         if (GameActive)
         {
             rb.velocity = (Player.transform.position - transform.position).normalized * MoveSpeed;
+            // Calculate the direction from the enemy to the hero
+            Vector2 direction = Player.transform.position - transform.position;
+
+            // Normalize the direction vector to get a unit vector
+            direction = direction.normalized;
+
+            // Determine the animation state based on the direction
+            if (direction.x < 0)
+            {
+                ChangeAnimationState(ENEMY_MOVE_LEFT);
+            }
+            else// if (direction.x < 0)
+            {
+                ChangeAnimationState(ENEMY_MOVE_RIGHT);
+            }
         }
         else
         {
@@ -50,5 +72,17 @@ public class EnemyController : MonoBehaviour
 
     public void StopMovement() {
         GameActive = false;
+    }
+
+    public void ChangeAnimationState(string newState)
+    {
+        // stop animation from repeating itself
+        if (CurrentAnimState == newState) return;
+
+        // play new animation
+        animator.Play(newState);
+
+        // update current animation
+        CurrentAnimState = newState;
     }
 }
