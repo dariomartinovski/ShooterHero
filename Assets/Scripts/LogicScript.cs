@@ -5,13 +5,23 @@ using UnityEngine.UI;
 
 public class LogicScript : MonoBehaviour
 {
-    public int CurretnLives = 5; 
+    public int CurretnLives = 5;
+    public int Score = 0;
     public Text LivesDisplay;
     public GameObject gameOverScreen;
+
+    public void Start() {
+        SetKillsCounter();
+    }
 
     public void TakeDamage(int num = 1) {
         CurretnLives -= num;
         LivesDisplay.text = CurretnLives.ToString();
+    }
+
+    public void Hit() {
+        Score++;
+        SetKillsCounter();
     }
 
     public void GameOver() { 
@@ -29,5 +39,9 @@ public class LogicScript : MonoBehaviour
             enemy.StopMovement();
         }
 
+    }
+
+    public void SetKillsCounter() {
+        LivesDisplay.text = Score.ToString();
     }
 }
