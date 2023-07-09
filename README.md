@@ -1,54 +1,37 @@
 # ShooterHero
 
-How to commit Unity files to an existing GitHub repository:
+Unity 2D game by: Dario Martinovski
+---
 
-1. Make sure you have Git installed on your machine and set up a local repository for your Unity project. If you haven't done this already, you can initialize a Git repository in your Unity project folder by running the following commands in the command line:
-
-```bash
+### 1. Опис на апликацијата
+Името на играта е „Shooter Hero“, и таа изгледа како подолу поставените слики. Играта има еден главен херој, кој може да пука и да собира поени. Поените ги добива преку „убивање“ на противниците, кои се појавуваат од сите страни и одат накај херојот, интервалот на нивното појавување се намалува секоја измината секунда. Исто така херојот има пет животи, кои му се намалуваат за еден кога нема да успее да убие некој противник и тој ќе се удри во херојот. Играта има два можни завршетоци, при победа или при загуба. Победа се случува кога херојот ќе ги преживее десетте минути, со било колку останати животи, а играта се губи доколку животите се намалат до нула. \
+\
+  <img src="https://github.com/dariomartinovski/ShooterHero/assets/80409852/6a640120-d306-4ad4-a05c-e21ea1081350" alt="Start screen image" style="width: 440px;">
+  <img src="https://github.com/dariomartinovski/ShooterHero/assets/80409852/5bdc3a25-2ec1-4d5f-bd30-89d1db5644d5" alt="Gameplay image" style="width: 440px;">
+##
+### 2. Упатство за користењe
+#### 2.1 Почеток на играта
+Играта започнува т.ш. се вклучува почетниот екран, Слика 1 погоре. Потоа од таму можеме да ја исклучиме играта со клик на копчето „Exit Game“, или да започнеме со играта со клик на копчето „Start Game“. Исто така на почетниот екран се испишани моменталните најдобри поени. \
+Со клик на копчето „Start Game“ започнува играта, а со тоа и појавувањето на противниците, како и откуцувањето на тајмерот, кој започнува да откуцува надоле од 10 минути, прикажан во горниот десен агол. Во горниот лев агол ни се прикажани моменталните животи, секоја игра започнува со пет животи.
+#### 2.2 Движење на херојот
+Херојот можеме да го движиме преку тестатура, преку копчињата W, A, S и D, или пак преку стрелките. 
+#### 2.3 Пукање со херојот
+Херојот има пушка која го следи движењето на глувчето. Со лев клик на глувчето можеме да истреламе куршум, со држење на левиот клик се истрелуваат куршуми непрекинато, со тоа што има предодредена рата на пукање во секунда. Кога некој куршум ќе погоди некој противник, противникот се уништува во тој момент, исто како и куршумот.
+#### 2.4 Појавување на противници
+Противниците се појавуваат на секои 5 секунди од сите четири страни истовремено, времето на појавување се намалува на секој а секунда за 0.3 секунди, значи од 9та до 10та минута противниците ќе се појавуваат на секои 5 секунди, па потоа од 8сма до 9та минута ќе се појавуваат на секои 4.7 секунди и т.н. Противниците може да бидат убиени од еден куршум, пришто даваат по 10 поени, или може да се судрат со херојот пришто му одземаат еден живот.
+#### 2.5 Пауза
+Играта може да се паузира преку клик на копчето „Escape“ од тестатурата, пришто се појавува Pause менито. Pause менито е составено од копче „Resume Game“, „New Game“ и „Exit Game“. Играта може да ја продолжиме преку клик на копчето „Resume Game“ или преку повторен клик на копчето „Есцапе“ од тестатура. Нова игра може да започнеме преку клик на копчето „New Game“, пришто се губи целиот напредок. Истот така има и копче за исклучување на играта.
+#### 2.4 Победа
+Позитивниот исход на играта е при победа, што се случува кога тајмерот ќе пристигне до 0, а херојот има останати еден или повеќе животи. Ако моменталните поени се поголеми од најголемите(high score), тогаш тие се зачувуваат.
+#### 2.5 Загуба
+Негативниот исход на играта се случува кога херојот ќе остане без ниту еден живот, и играта прекинува. Ако моменталните поени се поголеми од најголемите(high score), тогаш тие се зачувуваат.
+##
+### 3. Претставување на проблемот
+### 3.1 Податочни структури
+Главните податочни структури во оваа апликација се класи, има и компоиција(bullet i spawnbullets). Секој prefab e композиција
+```c#
 cd /path/to/your/unity/project/folder
 git init
 ```
 
-2. Create a new repository on GitHub. If you already have an existing repository, you can skip this step.
-
-3. Link your local Git repository to the GitHub repository by adding a remote origin. Replace `<repository-url>` with the URL of your GitHub repository:
-
-```bash
-git remote add origin <repository-url>
-```
-
-4. Stage the changes you want to commit. In Unity, you can use the Unity Editor's Version Control system or use the command line.
-
-Using the command line, you can add all the changed files by running:
-
-```bash
-git add .
-```
-
-If you want to stage specific files, replace `.` with the paths to those files.
-
-5. Commit the changes:
-
-```bash
-git commit -m "Commit message"
-```
-
-Replace `"Commit message"` with a meaningful description of the changes you're committing.
-
-```bash
-git commit -m "Initial commit" -m "This is the initial commit for the project. It includes the basic folder structure, assets, and initial configuration files. More details about the project setup can be found in the README.md file."
-```
-
-In this example, the first -m flag and message "Initial commit" represents the first line of the commit message (limited to 50 characters). The second -m flag and message provide the longer commit description.
-
-6. Push the changes to the remote repository:
-
-```bash
-git push origin <branch-name>
-```
-
-Replace `<branch-name>` with the name of the branch you want to push the changes to, such as `main` or `master`.
-
-After executing the `git push` command, the Unity files will be committed to your existing GitHub repository.
-
-Note: Make sure you have the necessary permissions to push changes to the GitHub repository. If you encounter any issues, ensure you have the correct access rights and verify the repository URL.
+**Целиот изворен код, како и exe датотеката се наоѓаат во branch-от master.
