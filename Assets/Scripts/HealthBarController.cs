@@ -29,7 +29,6 @@ public class HealthBarController : MonoBehaviour
             GameObject newHeart = Instantiate(Heart);
             newHeart.transform.SetParent(transform);
             newHeart.transform.localScale = Vector3.one;
-
             Hearts.Add(newHeart);
         }
     }

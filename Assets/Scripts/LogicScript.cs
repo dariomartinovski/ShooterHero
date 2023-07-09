@@ -10,21 +10,25 @@ public class LogicScript : MonoBehaviour
     public int CurretnLives = 5;
     public int Score = 0;
     private bool GamePaused = false;
-    private bool GameActive = true;
+    private bool GameActive = false;
 
     public Text ScoreDisplay;
     public Text TotalScore;
     public Text EnemiesKilled;
     public Text HighScore;
+    public Text StartScreenHighScore;
 
     public GameObject GameFinishedScreen;
     public GameObject gameWonScreen;
     public GameObject gameLostScreen;
     public GameObject gamePausedScreen;
+    public GameObject startGameScreen;
     private bool SomethingDispalyed = false;
 
     public void Start() {
+        PlayerPrefs.SetInt("HighScore", Math.Max(PlayerPrefs.GetInt("HighScore"), 0));
         SetKillsCounter();
+        StartScreenHighScore.text = "High score: " + PlayerPrefs.GetInt("HighScore").ToString();
     }
 
     public void Update()
@@ -107,7 +111,7 @@ public class LogicScript : MonoBehaviour
         EnemiesKilled.text = "Total enemies killed: " + Score.ToString();
         HighScore.text = "High score: " + PlayerPrefs.GetInt("HighScore").ToString();
 
-        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        /*PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         player.StopMovement();
 
         EnemySpawner enemySpawner = FindObjectsOfType<EnemySpawner>()[0];
@@ -117,10 +121,25 @@ public class LogicScript : MonoBehaviour
         foreach (EnemyController enemy in enemies)
         {
             enemy.StopMovement();
-        }
+        }*/
+    }
+
+    public bool IsGameActive() {
+        return GameActive;
     }
 
     public void RestartGame() {
+        GameActive = false;
+        startGameScreen.SetActive(true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartGame() {
+        startGameScreen.SetActive(false);
+        GameActive = true;
+    }
+
+    public void ExitGame() {
+        Application.Quit();
     }
 }

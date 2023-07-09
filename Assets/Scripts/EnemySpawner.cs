@@ -13,7 +13,6 @@ public class EnemySpawner : MonoBehaviour
     private float SpeedUpGame = 0;
     private static float SPEED_UP_GAME_EVERY_X = 60;
 
-    private bool GameActive = true;
     public LogicScript Logic;
 
     // Start is called before the first frame update
@@ -26,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameActive && !Logic.PausedGame())
+        if (Logic.IsGameActive() && !Logic.PausedGame())
         {
             if (SpawnTime < SpawnRate)
             {
@@ -60,10 +59,5 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(Enemy, new Vector3(randPos, (Offset * -1), 0), transform.rotation);
         // Left Spawn
         Instantiate(Enemy, new Vector3((Offset * -1), randPos, 0), transform.rotation);
-    }
-
-    public void StopSpawning()
-    {
-        GameActive = false;
     }
 }

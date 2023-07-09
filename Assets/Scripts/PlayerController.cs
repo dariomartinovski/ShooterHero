@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     public HealthBarController HealthBar;
     public GameObject RiflePivot;
     public GameObject Rifle;
-    private bool GameActive = true;
 
     //Player
     private float MoveSpeed = 4;
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour
             mousePos.x - transform.position.x) * Mathf.Rad2Deg - 180f;
 
 
-        if (GameActive && !Logic.PausedGame())
+        if (Logic.IsGameActive() && !Logic.PausedGame())
         {
             RiflePivot.transform.rotation = Quaternion.Euler(0, 0, angle);
 
@@ -112,7 +111,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if (GameActive && !Logic.PausedGame())
+        if (Logic.IsGameActive() && !Logic.PausedGame())
         {
             rb.velocity = new Vector2(HorizontalInput, VerticalInput).normalized * MoveSpeed ;
         }
@@ -127,10 +126,6 @@ public class PlayerController : MonoBehaviour
     {
         CurrentLives -= num;
         HealthBar.RemoveHeart();
-    }
-
-    public void StopMovement() {
-        GameActive = false;
     }
 
     public void ChangeAnimationState(string newState)

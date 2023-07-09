@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour
     // Enemy attributes
     private Rigidbody2D rb;
     private float MoveSpeed = 3f;
-    private bool GameActive = true;
 
     // Animations
     private Animator animator;
@@ -30,7 +29,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameActive && !Logic.PausedGame())
+        if (Logic.IsGameActive() && !Logic.PausedGame())
         {
             rb.velocity = (Player.transform.position - transform.position).normalized * MoveSpeed;
             // Calculate the direction from the enemy to the hero
@@ -69,11 +68,6 @@ public class EnemyController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
-
-
-    public void StopMovement() {
-        GameActive = false;
     }
 
     public void ChangeAnimationState(string newState)

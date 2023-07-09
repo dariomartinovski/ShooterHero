@@ -9,7 +9,6 @@ public class TimerController : MonoBehaviour
     public float CurrentTime;
     public bool CountDown;
     public float TimerLimit;
-    private bool GameActive;
 
     // Components
     public LogicScript Logic;
@@ -21,13 +20,12 @@ public class TimerController : MonoBehaviour
         CurrentTime = 600;
         TimerLimit = 0f;
         CountDown = true;
-        GameActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameActive && !Logic.PausedGame())
+        if (Logic.IsGameActive() && !Logic.PausedGame())
         {
             CurrentTime = CountDown ? CurrentTime -= Time.deltaTime : CurrentTime += Time.deltaTime;
 
@@ -35,7 +33,6 @@ public class TimerController : MonoBehaviour
             {
                 CurrentTime = TimerLimit;
                 Logic.GameWon();
-                GameActive = false;
             }
 
             SetTimeText();
