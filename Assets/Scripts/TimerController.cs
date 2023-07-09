@@ -18,7 +18,7 @@ public class TimerController : MonoBehaviour
     void Start()
     {
         Logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicScript>();
-        CurrentTime = 10;
+        CurrentTime = 600;
         TimerLimit = 0f;
         CountDown = true;
         GameActive = true;
@@ -34,7 +34,7 @@ public class TimerController : MonoBehaviour
             if (CurrentTime <= TimerLimit)
             {
                 CurrentTime = TimerLimit;
-                Logic.GameOver();
+                Logic.GameWon();
                 GameActive = false;
             }
 

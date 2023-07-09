@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float BulletSpeed = 10f;
-    private float LifeTime = 2f;
+    private float LifeTime = 1.5f;
     
     // Components
     public LogicScript Logic;

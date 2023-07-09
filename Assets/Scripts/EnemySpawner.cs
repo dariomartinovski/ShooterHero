@@ -8,6 +8,11 @@ public class EnemySpawner : MonoBehaviour
     private int Offset = 22;
     private float SpawnRate = 5;
     private float SpawnTime = 0;
+
+    //speed up game every minute by 0.3 spawn rate? 
+    private float SpeedUpGame = 0;
+    private static float SPEED_UP_GAME_EVERY_X = 60;
+
     private bool GameActive = true;
 
     // Start is called before the first frame update
@@ -29,6 +34,15 @@ public class EnemySpawner : MonoBehaviour
             {
                 SpawnEnemy();
                 SpawnTime = 0;
+            }
+            if (SpeedUpGame < SPEED_UP_GAME_EVERY_X) // < 60, every minute
+            {
+                SpeedUpGame += Time.deltaTime;
+            }
+            else
+            {
+                SpawnRate -= 0.3f;
+                SpeedUpGame = 0;
             }
         }
     }
