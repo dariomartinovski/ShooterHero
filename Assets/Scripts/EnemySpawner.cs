@@ -14,17 +14,19 @@ public class EnemySpawner : MonoBehaviour
     private static float SPEED_UP_GAME_EVERY_X = 60;
 
     private bool GameActive = true;
+    public LogicScript Logic;
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnEnemy();
+        Logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameActive)
+        if (GameActive && !Logic.PausedGame())
         {
             if (SpawnTime < SpawnRate)
             {

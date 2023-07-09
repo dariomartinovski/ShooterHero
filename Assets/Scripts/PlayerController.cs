@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
             mousePos.x - transform.position.x) * Mathf.Rad2Deg - 180f;
 
 
-        if (GameActive)
+        if (GameActive && !Logic.PausedGame())
         {
             RiflePivot.transform.rotation = Quaternion.Euler(0, 0, angle);
 
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if (GameActive)
+        if (GameActive && !Logic.PausedGame())
         {
             rb.velocity = new Vector2(HorizontalInput, VerticalInput).normalized * MoveSpeed ;
         }
@@ -126,7 +126,6 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int num = 1)
     {
         CurrentLives -= num;
-        //Logic.TakeDamage();
         HealthBar.RemoveHeart();
     }
 

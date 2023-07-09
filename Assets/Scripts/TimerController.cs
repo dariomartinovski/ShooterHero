@@ -27,7 +27,7 @@ public class TimerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameActive)
+        if (GameActive && !Logic.PausedGame())
         {
             CurrentTime = CountDown ? CurrentTime -= Time.deltaTime : CurrentTime += Time.deltaTime;
 

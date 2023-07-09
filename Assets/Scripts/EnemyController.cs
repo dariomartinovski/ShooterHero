@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     // Components
     public GameObject Player;
+    public LogicScript Logic;
     
     // Enemy attributes
     private Rigidbody2D rb;
@@ -20,6 +21,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        Logic = GameObject.FindGameObjectWithTag("LogicManager").GetComponent<LogicScript>();
         Player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -28,7 +30,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameActive)
+        if (GameActive && !Logic.PausedGame())
         {
             rb.velocity = (Player.transform.position - transform.position).normalized * MoveSpeed;
             // Calculate the direction from the enemy to the hero
@@ -84,5 +86,5 @@ public class EnemyController : MonoBehaviour
 
         // update current animation
         CurrentAnimState = newState;
-    }
+     }
 }
